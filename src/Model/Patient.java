@@ -5,13 +5,14 @@
  */
 package Model;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 /**
  *
  * @author Optimus 2020
  */
-public class Patient {
+public class Patient implements Serializable {
     private String id;
     private String userName;
     private String respiratoryFrequency;
@@ -19,6 +20,7 @@ public class Patient {
     private String bloodOxygen;
     private String heartRate;
     private String bloodPressure;
+    private boolean seriousness = false;
     
     public Patient(String userName, String respiratoryFrequency, String temperature, String bloodOxygen, String heartRate, String bloodPressure) {
         this.id = UUID.randomUUID().toString().substring(9, 13);
@@ -28,6 +30,10 @@ public class Patient {
         this.bloodOxygen = bloodOxygen;
         this.heartRate = heartRate;
         this.bloodPressure = bloodPressure;
+    }
+    
+    public void verifySeriousness(){
+    
     }
 
     public Patient() {
@@ -39,10 +45,6 @@ public class Patient {
     
     public String getUserName() {
         return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public String getRespiratoryFrequency() {

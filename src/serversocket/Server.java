@@ -66,13 +66,18 @@ public class Server {
                 System.out.println(content);
                 newPatient[i] = content;
                 
-                if(i == 6){
-                    if(newPatient[0].equals("POST")){
-                        PatientServices.create(newPatient[1], newPatient[2], newPatient[3], newPatient[4], newPatient[5], newPatient[6]);
-                        ObjectOutputStream saida = new ObjectOutputStream(client.getOutputStream());
-                        saida.flush();
-                        saida.writeObject(new String("O paciente [" + patients.get(patients.size()-1).getUserName()) + "] foi cadastrado!");
-                    }
+                if(content.equals("GET")){
+                    ObjectOutputStream saida = new ObjectOutputStream(client.getOutputStream());
+                    saida.flush();
+                    saida.writeObject(patients);
+                }
+                
+                if(newPatient[0].equals("POST") && i == 6){
+                    PatientServices.create(newPatient[1], newPatient[2], newPatient[3], newPatient[4], newPatient[5], newPatient[6]);
+                    ObjectOutputStream saida = new ObjectOutputStream(client.getOutputStream());
+                    saida.flush();
+                    saida.writeObject(new String("O paciente [" + patients.get(patients.size()-1).getUserName()) + "] foi cadastrado!");
+                    i = 0;
                 }
                 if(content.equals("1")){
                     ObjectOutputStream saida = new ObjectOutputStream(client.getOutputStream());
