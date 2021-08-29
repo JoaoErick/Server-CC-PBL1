@@ -34,14 +34,15 @@ public class Server {
     public static void main(String[] args) {
         try {
             PatientServices.seed();
-            String[] newPatient = {"","","","","","",""};
+//            String[] newPatient = {"","","","","","",""};
+            List<String> newPatient = new ArrayList();
+            
             for (int i = 0; i < patients.size(); i++) {
                 System.out.println("ID: " + patients.get(i).getId());
                 System.out.println("Nome: " + patients.get(i).getUserName());
                 System.out.println("Frequência Respiratória: " + patients.get(i).getRespiratoryFrequency());
                 System.out.println("");
             }
-            
             
             //Atende a pedidos via rede e em alguma porta.
             server = new ServerSocket();
@@ -64,7 +65,7 @@ public class Server {
             while(data.hasNextLine()){
                 content = data.nextLine();
                 System.out.println(content);
-                newPatient[i] = content;
+                newPatient.add(content);
                 
                 if(content.equals("GET")){
                     ObjectOutputStream saida = new ObjectOutputStream(client.getOutputStream());
@@ -72,17 +73,37 @@ public class Server {
                     saida.writeObject(patients);
                 }
                 
-                if(newPatient[0].equals("POST") && i == 6){
-                    PatientServices.create(newPatient[1], newPatient[2], newPatient[3], newPatient[4], newPatient[5], newPatient[6]);
+                if(newPatient.get(0).equals("POST") && i == 7){
+                    System.out.println("Antes");
+                    PatientServices.create(newPatient.get(1), newPatient.get(2), newPatient.get(3), newPatient.get(4), newPatient.get(5), newPatient.get(6), newPatient.get(7));
+                    System.out.println("Depois");
                     ObjectOutputStream saida = new ObjectOutputStream(client.getOutputStream());
                     saida.flush();
                     saida.writeObject(new String("O paciente [" + patients.get(patients.size()-1).getUserName()) + "] foi cadastrado!");
+                    newPatient.removeAll(newPatient);
+                    System.out.println(patients.size());
+                    System.out.println("----CADASTRO---");
+                    for (int j = 0; j < patients.size(); j++) {
+                        System.out.println("ID: " + patients.get(j).getId());
+                        System.out.println("Nome: " + patients.get(j).getUserName());
+                        System.out.println("Frequência Respiratória: " + patients.get(j).getRespiratoryFrequency());
+                        System.out.println("");
+                    }
                     i = 0;
-                }
-                if(content.equals("1")){
+                } else if(newPatient.get(0).equals("PUT") && i == 8){
+                    PatientServices.update(newPatient.get(1), newPatient.get(2), newPatient.get(3), newPatient.get(4), newPatient.get(5), newPatient.get(6), newPatient.get(7));
                     ObjectOutputStream saida = new ObjectOutputStream(client.getOutputStream());
                     saida.flush();
-                    saida.writeObject(new String("Azul, Vermelho e Amarelo"));
+                    saida.writeObject(new String("O paciente [" + patients.get(patients.size()-1).getUserName()) + "] foi cadastrado!");
+                    newPatient.removeAll(newPatient);
+                    System.out.println("----UPDATE---");
+                    for (int j = 0; j < patients.size(); j++) {
+                        System.out.println("ID: " + patients.get(j).getId());
+                        System.out.println("Nome: " + patients.get(j).getUserName());
+                        System.out.println("Frequência Respiratória: " + patients.get(j).getRespiratoryFrequency());
+                        System.out.println("");
+                    }
+                    i = 0;
                 }
                 i++;
             }
@@ -93,8 +114,6 @@ public class Server {
                 System.out.println("Frequência Respiratória: " + patients.get(i).getRespiratoryFrequency());
                 System.out.println("");
             } 
-            
-            
             
             //Finalizando a conexão
             data.close();

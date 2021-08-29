@@ -6,7 +6,6 @@
 package Model;
 
 import java.io.Serializable;
-import java.util.UUID;
 
 /**
  *
@@ -22,8 +21,8 @@ public class Patient implements Serializable {
     private String bloodPressure;
     private boolean seriousness = false;
     
-    public Patient(String userName, String respiratoryFrequency, String temperature, String bloodOxygen, String heartRate, String bloodPressure) {
-        this.id = UUID.randomUUID().toString().substring(9, 13);
+    public Patient(String id, String userName, String respiratoryFrequency, String temperature, String bloodOxygen, String heartRate, String bloodPressure) {
+        this.id = id;
         this.userName = userName;
         this.respiratoryFrequency = respiratoryFrequency;
         this.temperature = temperature;
