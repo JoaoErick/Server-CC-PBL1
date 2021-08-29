@@ -67,13 +67,13 @@ public class Server {
                 System.out.println(content);
                 newPatient.add(content);
                 
+                i++;
                 if(content.equals("GET")){
                     ObjectOutputStream saida = new ObjectOutputStream(client.getOutputStream());
                     saida.flush();
                     saida.writeObject(patients);
                 }
-                
-                if(newPatient.get(0).equals("POST") && i == 7){
+                if(newPatient.get(0).equals("POST") && i == 8){
                     System.out.println("Antes");
                     PatientServices.create(newPatient.get(1), newPatient.get(2), newPatient.get(3), newPatient.get(4), newPatient.get(5), newPatient.get(6), newPatient.get(7));
                     System.out.println("Depois");
@@ -105,10 +105,12 @@ public class Server {
                     }
                     i = 0;
                 }
-                i++;
+                
             }
             
             for (i = 0; i < patients.size(); i++) {
+                if(patients.get(i).isSeriousness())
+                    System.out.print("[GRAVE] ");
                 System.out.println("ID: " + patients.get(i).getId());
                 System.out.println("Nome: " + patients.get(i).getUserName());
                 System.out.println("Frequência Respiratória: " + patients.get(i).getRespiratoryFrequency());
