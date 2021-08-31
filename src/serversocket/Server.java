@@ -34,7 +34,6 @@ public class Server {
     public static void main(String[] args) {
         try {
             PatientServices.seed();
-//            String[] newPatient = {"","","","","","",""};
             List<String> newPatient = new ArrayList();
             
             for (int i = 0; i < patients.size(); i++) {
