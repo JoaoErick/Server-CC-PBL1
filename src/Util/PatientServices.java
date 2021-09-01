@@ -25,10 +25,10 @@ public class PatientServices {
     }
     
     public static void seed(){
-        create("123", "Joao", "11", "35.5", "96.7", "83", "112");
-        create("456", "Carlos", "14", "35.1", "98.4", "76", "117");
-        create("789", "Maria", "10", "34.9","97.3", "88", "128");
-        create("000", "Antônio", "12", "35.7", "94.7", "68", "108");
+        create("1234", "Joao", "11", "35.5", "96.7", "83", "112");
+        create("4567", "Carlos", "14", "35.1", "98.4", "76", "117");
+        create("7898", "Maria", "10", "34.9","97.3", "88", "128");
+        create("0000", "Antônio", "12", "35.7", "94.7", "68", "108");
     }
     
     /**
@@ -79,6 +79,8 @@ public class PatientServices {
                     patients.get(i).setBloodOxygen(bloodOxygen);
                     patients.get(i).setHeartRate(heartRate);
                     patients.get(i).setBloodPressure(bloodPressure);
+                    
+                    patients.get(i).verifySeriousness();
                 }
             }
         }
