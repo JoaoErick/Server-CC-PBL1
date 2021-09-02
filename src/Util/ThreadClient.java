@@ -43,17 +43,19 @@ public class ThreadClient implements Runnable{
                 i++;
                 //Caso a rota de requisição seja "GET /list", a lista de pacientes é retornada ao cliente.
                 if (content.equals("GET /list")) {
-                    ObjectOutputStream saida = new ObjectOutputStream(client.getOutputStream());
-                    saida.flush();
-                    saida.writeObject(patients);
+                    ObjectOutputStream output = new ObjectOutputStream(client.getOutputStream());
+                    output.flush();
+                    output.writeObject(patients);
+                    output.flush();
+                    output.writeObject(new String("200 OK"));
                 }
                 //Caso a rota de requisição seja "POST /create", um novo paciente é criado e adicionado na lista de pacientes e é retornada uma mensagem de confirmação.
                 if (newPatient.get(0).equals("POST /create") && i == 8) {
                     PatientServices.create(newPatient.get(1), newPatient.get(2), newPatient.get(3), newPatient.get(4), newPatient.get(5), newPatient.get(6), newPatient.get(7));
 
-                    ObjectOutputStream saida = new ObjectOutputStream(client.getOutputStream());
-                    saida.flush();
-                    saida.writeObject(new String("O paciente [" + patients.get(patients.size() - 1).getUserName()) + "] foi cadastrado!");
+                    ObjectOutputStream output = new ObjectOutputStream(client.getOutputStream());
+                    output.flush();
+                    output.writeObject(new String("200 OK"));
 
                     newPatient.removeAll(newPatient);
 
@@ -69,9 +71,9 @@ public class ThreadClient implements Runnable{
                 } else if (newPatient.get(0).equals("PUT /update") && i == 8) {
                     PatientServices.update(newPatient.get(1), newPatient.get(2), newPatient.get(3), newPatient.get(4), newPatient.get(5), newPatient.get(6), newPatient.get(7));
 
-                    ObjectOutputStream saida = new ObjectOutputStream(client.getOutputStream());
-                    saida.flush();
-                    saida.writeObject(new String("O paciente [" + patients.get(patients.size() - 1).getUserName()) + "] foi atualizado!");
+                    ObjectOutputStream output = new ObjectOutputStream(client.getOutputStream());
+                    output.flush();
+                    output.writeObject(new String("200 OK"));
 
                     newPatient.removeAll(newPatient);
 
