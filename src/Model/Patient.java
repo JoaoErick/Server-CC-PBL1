@@ -6,7 +6,7 @@ import java.io.Serializable;
  * 
  * @author João Erick Barbosa
  */
-public class Patient implements Serializable {
+public class Patient implements Serializable, Comparable<Patient> {
     private String id;
     private String userName;
     private String respiratoryFrequency;
@@ -14,8 +14,10 @@ public class Patient implements Serializable {
     private String bloodOxygen;
     private String heartRate;
     private String bloodPressure;
+    
     private String situation = "Não grave";
     private boolean seriousness = false;
+    private double scoreSeriousness = 0.0;
     
     /**
      * Método construtor de paciente.
@@ -52,7 +54,28 @@ public class Patient implements Serializable {
             
             this.seriousness = true;
             this.situation = "Grave";
+            calculateScoreSeriousness();
         }
+    }
+    
+    public void calculateScoreSeriousness(){
+        double score = 0.0;
+        if(Integer.parseInt(this.respiratoryFrequency) >= 21 ){
+            score += (double) (Integer.parseInt(this.respiratoryFrequency)) * 1;
+        }
+        if(Integer.parseInt(this.heartRate) >= 111 ){
+            score += (double) (Integer.parseInt(this.heartRate)) * 1;
+        }
+        if(Integer.parseInt(this.bloodPressure) <= 100 ){
+            score += (double) (1/Integer.parseInt(this.bloodPressure)) * 1;
+        }
+        if(Double.parseDouble(this.temperature) >= 38.6 ){
+            score += (double) (Double.parseDouble(this.temperature)) * 1;
+        }
+        if(Double.parseDouble(this.bloodOxygen) <= 96.0){
+            score += (double) (1/Double.parseDouble(this.bloodOxygen)) * 2;
+        }
+        this.scoreSeriousness = (double) score/6;
     }
 
     public Patient() {
@@ -177,6 +200,26 @@ public class Patient implements Serializable {
      */
     public String getSituation() {
         return situation;
+    }
+
+    /**
+     * Método que retorna a pontuação que expressa o quão grave ele se encontra.
+     * 
+     * @return boolean
+     */
+    public double getScoreSeriousness() {
+        return scoreSeriousness;
+    }
+    
+    @Override
+    public int compareTo(Patient patient) {
+        if (this.scoreSeriousness > patient.getScoreSeriousness()) { 
+            return -1;
+        }
+        if (this.scoreSeriousness < patient.getScoreSeriousness()) {
+            return 1;
+        }
+        return 0;
     }
     
 }
