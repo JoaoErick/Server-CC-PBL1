@@ -28,7 +28,7 @@ public class Server {
             
             //Inicializando o servidor no endereço e porta especificados.
             server = new ServerSocket();
-            InetAddress addr = InetAddress.getByName("127.0.0.2"); 
+            InetAddress addr = InetAddress.getByName("localhost"); 
             InetSocketAddress inetSocket = new InetSocketAddress(addr, 60000);
             server.bind(inetSocket);
             

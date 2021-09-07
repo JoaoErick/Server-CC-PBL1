@@ -70,6 +70,7 @@ public class PatientServices {
         if(get(id) != null){
             for (int i = 0; i < patients.size(); i++) {
                 if(patients.get(i).getId().equals(id)){
+                    patients.get(i).setUserName(userName);
                     patients.get(i).setRespiratoryFrequency(respiratoryFrequency);
                     patients.get(i).setTemperature(temperature);
                     patients.get(i).setBloodOxygen(bloodOxygen);
