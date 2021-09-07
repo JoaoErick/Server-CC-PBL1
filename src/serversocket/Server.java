@@ -25,14 +25,6 @@ public class Server {
     
     public static void main(String[] args) {
         try {
-            PatientServices.seed();
-            
-            for (int i = 0; i < patients.size(); i++) {
-                System.out.println("ID: " + patients.get(i).getId());
-                System.out.println("Nome: " + patients.get(i).getUserName());
-                System.out.println("Frequência Respiratória: " + patients.get(i).getRespiratoryFrequency());
-                System.out.println("");
-            }
             
             //Inicializando o servidor no endereço e porta especificados.
             server = new ServerSocket();
@@ -40,8 +32,10 @@ public class Server {
             InetSocketAddress inetSocket = new InetSocketAddress(addr, 60000);
             server.bind(inetSocket);
             
-            System.out.println("Servidor iniciado na porta 60000");
-            System.out.println("HostAddress="+server.getInetAddress());
+            System.out.println("---- Servidor em execução ----");
+            System.out.println("| Endereço: " + server.getInetAddress());
+            System.out.println("| Porta: " + server.getLocalPort());
+            System.out.println("------------------------------");
             System.out.println("");
             
             while(true) {
