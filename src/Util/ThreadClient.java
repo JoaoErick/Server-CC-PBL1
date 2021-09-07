@@ -59,13 +59,6 @@ public class ThreadClient implements Runnable{
 
                     newPatient.removeAll(newPatient);
 
-                    System.out.println("----CADASTRO---");
-                    for (int j = 0; j < patients.size(); j++) {
-                        System.out.println("ID: " + patients.get(j).getId());
-                        System.out.println("Nome: " + patients.get(j).getUserName());
-                        System.out.println("Frequência Respiratória: " + patients.get(j).getRespiratoryFrequency());
-                        System.out.println("");
-                    }
                     i = 0;
                 //Caso a rota de requisição seja "PUT /update", os dados de um paciente são alterados na lista de pacientes e é retornada uma mensagem de confirmação.
                 } else if (newPatient.get(0).equals("PUT /update") && i == 8) {
@@ -77,13 +70,6 @@ public class ThreadClient implements Runnable{
 
                     newPatient.removeAll(newPatient);
 
-                    System.out.println("----UPDATE---");
-                    for (int j = 0; j < patients.size(); j++) {
-                        System.out.println("ID: " + patients.get(j).getId());
-                        System.out.println("Nome: " + patients.get(j).getUserName());
-                        System.out.println("Frequência Respiratória: " + patients.get(j).getRespiratoryFrequency());
-                        System.out.println("");
-                    }
                     i = 0;
                 }
 
