@@ -1,8 +1,10 @@
 
 package Util;
 
+import Model.Patient;
 import static Util.PatientServices.patients;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -26,23 +28,14 @@ public class ThreadClient implements Runnable{
 
     @Override
     public void run() {
-        //Recebe a informação enviada pelo cliente
-        Scanner data;
-        //Armazena temporariamente as novas informações recebidas pela requisição.
-        List<String> newPatient = new ArrayList();
-        
         try {
-            data = new Scanner(client.getInputStream());
-            String content; //Armazena uma linha por vez dos dados recebidos.
-            int i = 0; //Verifica a quantidade de linhas recebidas.
             
-            while (data.hasNextLine()) {
-                content = data.nextLine();
-                newPatient.add(content);
-
-                i++;
+            while(true){
+                ObjectInputStream input = new ObjectInputStream(client.getInputStream());
+                String request = (String)input.readObject(); //Armazena o método HTTP e a rota da requisição.
+                
                 //Caso a rota de requisição seja "GET /list", a lista de pacientes é retornada ao cliente.
-                if (content.equals("GET /list")) {
+                if (request.equals("GET /list")) {
                     ObjectOutputStream output = new ObjectOutputStream(client.getOutputStream());
                     output.flush();
                     output.writeObject(patients);
@@ -50,31 +43,46 @@ public class ThreadClient implements Runnable{
                     output.writeObject(new String("200 OK"));
                 }
                 //Caso a rota de requisição seja "POST /create", um novo paciente é criado e adicionado na lista de pacientes e é retornada uma mensagem de confirmação.
-                if (newPatient.get(0).equals("POST /create") && i == 8) {
-                    PatientServices.create(newPatient.get(1), newPatient.get(2), newPatient.get(3), newPatient.get(4), newPatient.get(5), newPatient.get(6), newPatient.get(7));
+                if (request.equals("POST /create")) {
+                    
+                    Patient patient = (Patient)input.readObject(); //Armazena as informações do paciente recebidas pela requisição.
+                    PatientServices.create(
+                            patient.getId(), 
+                            patient.getUserName(), 
+                            patient.getRespiratoryFrequency(), 
+                            patient.getTemperature(), 
+                            patient.getBloodOxygen(), 
+                            patient.getHeartRate(), 
+                            patient.getBloodPressure()
+                    );
 
                     ObjectOutputStream output = new ObjectOutputStream(client.getOutputStream());
                     output.flush();
                     output.writeObject(new String("200 OK"));
 
-                    newPatient.removeAll(newPatient);
-
-                    i = 0;
                 //Caso a rota de requisição seja "PUT /update", os dados de um paciente são alterados na lista de pacientes e é retornada uma mensagem de confirmação.
-                } else if (newPatient.get(0).equals("PUT /update") && i == 8) {
-                    PatientServices.update(newPatient.get(1), newPatient.get(2), newPatient.get(3), newPatient.get(4), newPatient.get(5), newPatient.get(6), newPatient.get(7));
+                } else if (request.equals("PUT /update")) {
+                    
+                    Patient patient = (Patient)input.readObject(); //Armazena as informações do paciente recebidas pela requisição.
+                    PatientServices.update(
+                            patient.getId(), 
+                            patient.getUserName(), 
+                            patient.getRespiratoryFrequency(), 
+                            patient.getTemperature(), 
+                            patient.getBloodOxygen(), 
+                            patient.getHeartRate(), 
+                            patient.getBloodPressure()
+                    );
 
                     ObjectOutputStream output = new ObjectOutputStream(client.getOutputStream());
                     output.flush();
                     output.writeObject(new String("200 OK"));
 
-                    newPatient.removeAll(newPatient);
-
-                    i = 0;
                 }
-
             }
         } catch (IOException ex) {
+            Logger.getLogger(ThreadClient.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(ThreadClient.class.getName()).log(Level.SEVERE, null, ex);
         }
             
