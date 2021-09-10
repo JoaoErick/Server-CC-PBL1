@@ -1,8 +1,6 @@
 
 package serversocket;
 
-import Util.PatientServices;
-import static Util.PatientServices.patients;
 import Util.ThreadClient;
 import java.io.IOException;
 import java.net.InetAddress;
