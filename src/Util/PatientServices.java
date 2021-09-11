@@ -21,13 +21,6 @@ public class PatientServices {
         return patients;
     }
     
-    public static void seed(){
-        create("1234", "Joao", "11", "35.5", "96.7", "83", "112");
-        create("4567", "Carlos", "14", "35.1", "98.4", "76", "117");
-        create("7898", "Maria", "10", "34.9","97.3", "88", "128");
-        create("0000", "Antônio", "12", "35.7", "94.7", "68", "108");
-    }
-    
     /**
      * Busca um paciente na lista pelo id passado por parâmetro.
      * @param id - id do paciente a ser buscado.
