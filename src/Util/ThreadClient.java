@@ -38,7 +38,7 @@ public class ThreadClient implements Runnable{
                 if (request.equals("GET /list")) {
                     ObjectOutputStream output = new ObjectOutputStream(client.getOutputStream());
                     output.flush();
-                    output.writeObject(patients);
+                    output.writeObject(PatientServices.list());
                     output.flush();
                     output.writeObject(new String("200 OK"));
                 }
@@ -80,10 +80,14 @@ public class ThreadClient implements Runnable{
 
                 }
             }
-        } catch (IOException ex) {
-            Logger.getLogger(ThreadClient.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ThreadClient.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException | ClassNotFoundException ex) {
+            try {
+                client.close();
+            }
+            catch(Exception ec) {}
+            System.out.println("");
+            System.out.println("Conexão finalizada com o cliente:");
+            System.out.println("\tIP: " + client.getInetAddress().getHostAddress() + " | Porta: " + client.getPort());
         }
             
     }

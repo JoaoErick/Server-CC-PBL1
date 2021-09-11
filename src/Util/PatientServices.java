@@ -3,6 +3,7 @@ package Util;
 
 import Model.Patient;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ import java.util.List;
  * @author João Erick Barbosa
  */
 public class PatientServices {
-    public static List<Patient> patients = new ArrayList();
+    public static List<Patient> patients = Collections.synchronizedList (new ArrayList());
     
     /**
      * Retorna a lista de pacientes.
