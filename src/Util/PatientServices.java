@@ -3,6 +3,7 @@ package Util;
 
 import Model.Patient;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ import java.util.List;
  * @author João Erick Barbosa
  */
 public class PatientServices {
-    public static List<Patient> patients = new ArrayList();
+    public static List<Patient> patients = Collections.synchronizedList (new ArrayList());
     
     /**
      * Retorna a lista de pacientes.
@@ -18,13 +19,6 @@ public class PatientServices {
      */
     public static List<Patient> list(){
         return patients;
-    }
-    
-    public static void seed(){
-        create("1234", "Joao", "11", "35.5", "96.7", "83", "112");
-        create("4567", "Carlos", "14", "35.1", "98.4", "76", "117");
-        create("7898", "Maria", "10", "34.9","97.3", "88", "128");
-        create("0000", "Antônio", "12", "35.7", "94.7", "68", "108");
     }
     
     /**
