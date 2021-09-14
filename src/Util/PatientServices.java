@@ -74,6 +74,8 @@ public class PatientServices {
                     patients.get(i).verifySeriousness();
                 }
             }
+        } else{
+            create(id, userName, respiratoryFrequency, temperature, bloodOxygen, heartRate, bloodPressure);
         }
     }
     
