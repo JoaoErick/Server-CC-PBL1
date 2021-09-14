@@ -2,16 +2,10 @@
 package Util;
 
 import Model.Patient;
-import static Util.PatientServices.patients;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Thread responsável por tratar as requições do cliente que foi aceito pelo servidor.
@@ -58,7 +52,7 @@ public class ThreadClient implements Runnable{
 
                     ObjectOutputStream output = new ObjectOutputStream(client.getOutputStream());
                     output.flush();
-                    output.writeObject(new String("200 OK"));
+                    output.writeObject(new String("201 Created"));
 
                 //Caso a rota de requisição seja "PUT /update", os dados de um paciente são alterados na lista de pacientes e é retornada uma mensagem de confirmação.
                 } else if (request.equals("PUT /update")) {
