@@ -35,9 +35,9 @@ public class ThreadClient implements Runnable{
                     output.writeObject(PatientServices.list());
                     output.flush();
                     output.writeObject(new String("200 OK"));
-                }
+                    
                 //Caso a rota de requisição seja "POST /create", um novo paciente é criado e adicionado na lista de pacientes e é retornada uma mensagem de confirmação.
-                if (request.equals("POST /create")) {
+                } else if (request.equals("POST /create")) {
                     
                     Patient patient = (Patient)input.readObject(); //Armazena as informações do paciente recebidas pela requisição.
                     PatientServices.create(
