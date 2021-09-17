@@ -20,6 +20,6 @@ Aplicação desktop destinada a resolução do Problema 1 da disciplina MI - Con
 ------------
 
 ## ⚖️ Licença ##
-[MIT License (MIT)]()
+[MIT License (MIT)](https://github.com/JoaoErick/Server-CC-PBL1/blob/main/LICENSE)
 
 
