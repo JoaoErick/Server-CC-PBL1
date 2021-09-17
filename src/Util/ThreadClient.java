@@ -53,6 +53,8 @@ public class ThreadClient implements Runnable{
                     ObjectOutputStream output = new ObjectOutputStream(client.getOutputStream());
                     output.flush();
                     output.writeObject(new String("201 Created"));
+                    
+                    TxtGenerator.generate("data.txt", PatientServices.list());
 
                 //Caso a rota de requisição seja "PUT /update", os dados de um paciente são alterados na lista de pacientes e é retornada uma mensagem de confirmação.
                 } else if (request.equals("PUT /update")) {
@@ -71,7 +73,8 @@ public class ThreadClient implements Runnable{
                     ObjectOutputStream output = new ObjectOutputStream(client.getOutputStream());
                     output.flush();
                     output.writeObject(new String("200 OK"));
-
+                    
+                    TxtGenerator.generate("data.txt", PatientServices.list());
                 }
             }
         } catch (IOException | ClassNotFoundException ex) {
