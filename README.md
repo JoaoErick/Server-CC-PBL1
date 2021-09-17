@@ -1,6 +1,5 @@
 # Servidor Socket
 
-<h3 align="center">Interface</h3>
 <p align="center">
   <img src="https://i.imgur.com/VOKs4ly.png" width="70%">
 </p>
