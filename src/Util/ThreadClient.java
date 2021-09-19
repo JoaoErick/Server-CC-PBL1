@@ -85,6 +85,8 @@ public class ThreadClient implements Runnable{
             System.out.println("");
             System.out.println("Conexão finalizada com o cliente:");
             System.out.println("\tIP: " + client.getInetAddress().getHostAddress() + " | Porta: " + client.getPort());
+            System.out.println("------------------------------");
+            System.out.println("");
         }
             
     }
